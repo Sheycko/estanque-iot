@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="3">
+<title>Estanque IoT Industrial</title>
+
+<style>
+body{
+    margin:0;
+    background:#020617;
+    font-family:Arial;
+    color:white;
+    text-align:center;
+}
+
+#encabezado{
+    padding:18px;
+    background:linear-gradient(90deg,#020617,#0f172a,#1e3a8a,#0f172a,#020617);
+    box-shadow:0px 0px 25px #38bdf8;
+}
+
+#titulo{
+    color:#38bdf8;
+    font-size:34px;
+    text-shadow:0px 0px 15px #38bdf8;
+}
+
+#integrantes{
+    color:#e2e8f0;
+    font-weight:bold;
+}
+
+#principal{
+    width:1150px;
+    margin:auto;
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:300px 520px 300px;
+    gap:25px;
+    align-items:center;
+}
+
+#panel_izq, #panel_der{
+    background:#0f172a;
+    border:3px solid #38bdf8;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0px 0px 22px #38bdf8;
+}
+
+#valor_nivel{
+    font-size:58px;
+    color:#38bdf8;
+    font-weight:bold;
+}
+
+#estado{
+    font-size:28px;
+    font-weight:bold;
+    color:
+    {% if led == "VERDE" %}
+    #22c55e
+    {% elif led == "AMARILLO" %}
+    #facc15
+    {% else %}
+    #ef4444
+    {% endif %};
+}
+
+#modo{
+    color:#38bdf8;
+    font-size:22px;
+    font-weight:bold;
+}
+
+#zona_estanque{
+    position:relative;
+    height:520px;
+}
+
+#tuberia_arriba{
+    position:absolute;
+    top:0;
+    left:170px;
+    width:180px;
+    height:50px;
+    background:#707b8a;
+    border-radius:10px;
+    border:4px solid #aeb6bf;
+    box-shadow:0 0 15px #5dade2;
+}
+
+#tuberia_vertical{
+    position:absolute;
+    top:48px;
+    left:242px;
+    width:35px;
+    height:75px;
+    background:#707b8a;
+    border-left:4px solid #aeb6bf;
+    border-right:4px solid #aeb6bf;
+}
+
+#estanque{
+    position:absolute;
+    top:110px;
+    left:80px;
+    width:360px;
+    height:360px;
+    border:8px solid #94a3b8;
+    border-radius:35px;
+    background:#111827;
+    overflow:hidden;
+    box-shadow:0px 0px 30px #38bdf8;
+}
+
+#agua{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:{{ nivel }}%;
+    background:linear-gradient(#67e8f9,#0284c7);
+    box-shadow:0px 0px 25px #38bdf8;
+    overflow:hidden;
+}
+
+#onda{
+    position:absolute;
+    top:-10px;
+    width:200%;
+    height:20px;
+    background:repeating-radial-gradient(circle,#ffffff 0,#ffffff 2px,transparent 4px);
+    animation:moverAgua 4s linear infinite;
+    opacity:0.8;
+}
+
+@keyframes moverAgua{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-80px); }
+}
+
+#nivel_centro{
+    position:absolute;
+    width:100%;
+    top:145px;
+    font-size:52px;
+    font-weight:bold;
+    text-shadow:0px 0px 15px #000;
+}
+
+.sensor{
+    position:absolute;
+    right:15px;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    border:2px solid white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:bold;
+    color:white;
+    box-shadow:0 0 10px white;
+}
+
+.sensor_alto{
+    top:50px;
+    background:#22c55e;
+}
+
+.sensor_medio{
+    top:150px;
+    background:#facc15;
+    color:black;
+}
+
+.sensor_bajo{
+    top:250px;
+    background:#ef4444;
+}
+
+.bomba{
+    position:absolute;
+    width:110px;
+    height:95px;
+    background:#1e293b;
+    border-radius:18px;
+    border:3px solid #38bdf8;
+    box-shadow:0 0 15px #38bdf8;
+    text-align:center;
+    padding-top:8px;
+}
+
+.bomba1{
+    left:0;
+    bottom:10px;
+}
+
+.bomba2{
+    right:0;
+    bottom:10px;
+}
+
+.motor{
+    width:40px;
+    height:40px;
+    margin:auto;
+    border-radius:50%;
+    background:#64748b;
+    border:3px solid white;
+    box-shadow:0 0 12px #38bdf8;
+}
+
+.texto_bomba{
+    margin-top:8px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.estado_bomba{
+    color:#38bdf8;
+    font-weight:bold;
+    font-size:18px;
+}
+
+#barra{
+    height:26px;
+    width:230px;
+    border:2px solid #38bdf8;
+    border-radius:15px;
+    margin:auto;
+    overflow:hidden;
+    background:#020617;
+}
+
+#relleno_barra{
+    height:100%;
+    width:{{ nivel }}%;
+    background:#38bdf8;
+}
+
+#led{
+    width:90px;
+    height:90px;
+    margin:auto;
+    border-radius:50%;
+    background:
+    {% if led == "VERDE" %}
+    #22c55e
+    {% elif led == "AMARILLO" %}
+    #facc15
+    {% else %}
+    #ef4444
+    {% endif %};
+    box-shadow:0px 0px 35px
+    {% if led == "VERDE" %}
+    #22c55e
+    {% elif led == "AMARILLO" %}
+    #facc15
+    {% else %}
+    #ef4444
+    {% endif %};
+}
+
+.boton{
+    display:block;
+    margin:12px auto;
+    width:210px;
+    padding:14px;
+    border-radius:12px;
+    background:#1e3a8a;
+    border:2px solid #38bdf8;
+    box-shadow:0px 0px 14px #38bdf8;
+    font-weight:bold;
+    color:white;
+    text-decoration:none;
+}
+
+.boton:hover{
+    background:#2563eb;
+}
+
+#terminal{
+    width:1080px;
+    margin:auto;
+    margin-top:25px;
+    background:#000;
+    color:#22c55e;
+    text-align:left;
+    padding:18px;
+    border-radius:15px;
+    border:2px solid #22c55e;
+    font-family:monospace;
+    box-shadow:0px 0px 18px #22c55e;
+}
+
+#pie{
+    color:#94a3b8;
+    margin:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="encabezado">
+    <h1 id="titulo">SISTEMA INDUSTRIAL DE ESTANQUE IoT</h1>
+    <p id="integrantes">Benjamín Valdebenito - Gustavo Fuentes</p>
+</div>
+
+<div id="principal">
+
+    <div id="panel_izq">
+        <h2>MONITOREO</h2>
+
+        <p>Modo actual</p>
+        <div id="modo">{{ modo }}</div>
+
+        <p>Nivel actual</p>
+        <div id="valor_nivel">{{ nivel }}%</div>
+
+        <p>Barra de nivel</p>
+        <div id="barra">
+            <div id="relleno_barra"></div>
+        </div>
+
+        <h2>Estado</h2>
+        <div id="estado">{{ estado }}</div>
+        <p>{{ mensaje }}</p>
+    </div>
+
+    <div id="zona_estanque">
+
+        <div id="tuberia_arriba"></div>
+        <div id="tuberia_vertical"></div>
+
+        <div id="estanque">
+
+            <div id="agua">
+                <div id="onda"></div>
+            </div>
+
+            <div id="nivel_centro">{{ nivel }}%</div>
+
+            <div class="sensor sensor_alto"><span>▲</span></div>
+            <div class="sensor sensor_medio"><span>■</span></div>
+            <div class="sensor sensor_bajo"><span>▼</span></div>
+
+        </div>
+
+        <div class="bomba bomba1">
+            <div class="motor"></div>
+            <div class="texto_bomba">BOMBA 1</div>
+            <div class="estado_bomba">ON</div>
+        </div>
+
+        <div class="bomba bomba2">
+            <div class="motor"></div>
+            <div class="texto_bomba">BOMBA 2</div>
+            <div class="estado_bomba">OFF</div>
+        </div>
+
+    </div>
+
+    <div id="panel_der">
+        <h2>ACTUADORES</h2>
+
+        <h3>LED principal</h3>
+        <div id="led"></div>
+        <h2>{{ led }}</h2>
+
+        <a href="/automatico" class="boton">MODO AUTOMÁTICO</a>
+        <a href="/mantenimiento" class="boton">MANTENIMIENTO</a>
+        <a href="/falla" class="boton">FALLA</a>
+
+        <h3>Última actualización</h3>
+        <p>{{ fecha }}</p>
+    </div>
+
+</div>
+
+<div id="terminal">
+    <p>[SISTEMA] Monitor tipo terminal activo</p>
+    <p>[MODO] Modo actual: {{ modo }}</p>
+    <p>[ESP32-01] Sensor de nivel simulado: {{ nivel }}%</p>
+    <p>[ESP32-02] Actuadores: LED {{ led }} / Bombas simuladas</p>
+    <p>[ESTADO] {{ estado }} - {{ mensaje }}</p>
+    <p>[SUPABASE] Registro de eventos pendiente de conexión</p>
+    <p>[PROTOCOLO] Etapa digital preparada para HTTP / MQTT</p>
+    <p>[FECHA] {{ fecha }}</p>
+</div>
+
+<div id="pie">
+    Evaluación Sumativa - Desarrollo de Software para Hardware
+</div>
+
+</body>
+</html>
