@@ -51,7 +51,6 @@ La aplicación desarrollada en Python con Flask recibe la información enviada p
 - Python
 - Flask
 - HTML5
-- CSS3
 - Supabase
 - GitHub
 
