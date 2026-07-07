@@ -180,4 +180,4 @@ Cada registro contiene:
 
 # 📄 Licencia
 
-Proyecto desarrollado únicamente con fines académicos para la asignatura **Desarrollo de Software Para Hardeare**.
+Proyecto desarrollado únicamente con fines académicos para la asignatura **Desarrollo de Software para Hardware**.
