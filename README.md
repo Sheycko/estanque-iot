@@ -122,7 +122,8 @@ estanque-iot/
     ├── estanque.png
     ├── estanque1.jpeg
     ├── arduino.jpeg
-    └── supabase.png
+    ├── supabase.png
+    └── homero.jpeg
 ```
 
 ---
@@ -175,6 +176,15 @@ Cada registro contiene:
 - Control de indicadores LED.
 - Registro de eventos en Supabase.
 - Respaldo del código en GitHub.
+
+---
+
+#  🤓 Aquí pensando en cómo hacer el trabajo 
+
+Después de varias horas conectando cables, corrigiendo errores, haciendo pruebas, solucionando problemas de comunicación entre los ESP32 y logrando que todo funcionara...
+
+![Aquí pensando en cómo hacer el trabajo :D](capturas/homero.jpeg)
+
 
 ---
 
