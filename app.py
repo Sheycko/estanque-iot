@@ -11,8 +11,10 @@ modo_sistema = "AUTOMATICO"
 nivel_actual = 0
 ultimo_guardado = 0
 
+# IP DEL ESP32 ACTUADOR
 ESP32_ACTUADOR = "http://10.119.61.85"
 
+# SUPABASE
 SUPABASE_URL = "https://erutzaxqskowdhaudlbc.supabase.co/rest/v1/eventos_estanque"
 SUPABASE_KEY = "sb_publishable_WcNJVntiJvUrmIHSn2Cqew_pMscY3UU"
 
@@ -57,7 +59,12 @@ def guardar_supabase(nivel, estado, modo):
     }
 
     try:
-        r = requests.post(SUPABASE_URL, json=datos, headers=headers, timeout=3)
+        r = requests.post(
+            SUPABASE_URL,
+            json=datos,
+            headers=headers,
+            timeout=3
+        )
         print("Supabase:", r.status_code)
     except Exception as e:
         print("Error Supabase:", e)
@@ -71,16 +78,24 @@ def leer_serial():
         time.sleep(2)
 
         while True:
-            linea = puerto.readline().decode("utf-8", errors="ignore").strip()
+            linea = puerto.readline().decode(
+                "utf-8",
+                errors="ignore"
+            ).strip()
 
             if linea.startswith("NIVEL:"):
                 try:
                     nivel_actual = int(linea.replace("NIVEL:", ""))
+
                     estado, led, mensaje = calcular_estado(nivel_actual)
 
                     print("Nivel recibido:", nivel_actual)
 
-                    guardar_supabase(nivel_actual, estado, modo_sistema)
+                    guardar_supabase(
+                        nivel_actual,
+                        estado,
+                        modo_sistema
+                    )
 
                 except:
                     pass
@@ -89,11 +104,15 @@ def leer_serial():
         print("Error leyendo ESP32 sensor:", e)
 
 
-hilo_serial = threading.Thread(target=leer_serial, daemon=True)
+hilo_serial = threading.Thread(
+    target=leer_serial,
+    daemon=True
+)
 hilo_serial.start()
 
 
 def obtener_datos():
+
     fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     if modo_sistema == "MANTENIMIENTO":
@@ -109,11 +128,19 @@ def obtener_datos():
     else:
         estado, led, mensaje = calcular_estado(nivel_actual)
 
-    return nivel_actual, estado, led, mensaje, fecha, modo_sistema
+    return (
+        nivel_actual,
+        estado,
+        led,
+        mensaje,
+        fecha,
+        modo_sistema
+    )
 
 
 @app.route("/")
 def index():
+
     nivel, estado, led, mensaje, fecha, modo = obtener_datos()
 
     return render_template(
@@ -130,26 +157,39 @@ def index():
 @app.route("/automatico")
 def automatico():
     global modo_sistema
+
     modo_sistema = "AUTOMATICO"
+
     enviar_orden("/verde")
+
     return redirect(url_for("index"))
 
 
 @app.route("/mantenimiento")
 def mantenimiento():
     global modo_sistema
+
     modo_sistema = "MANTENIMIENTO"
+
     enviar_orden("/amarillo")
+
     return redirect(url_for("index"))
 
 
 @app.route("/falla")
 def falla():
     global modo_sistema
+
     modo_sistema = "FALLA"
+
     enviar_orden("/rojo")
+
     return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=False
+    )
