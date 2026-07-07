@@ -24,7 +24,7 @@ La aplicación desarrollada en Python con Flask recibe la información enviada p
 
 # 🏗 Arquitectura del sistema
 
-```
+```text
               ESP32 #1
         (Sensor de Nivel)
                │
@@ -99,13 +99,13 @@ La aplicación desarrollada en Python con Flask recibe la información enviada p
 
 ## Base de datos Supabase
 
-![Supabase](capturas/supabase.jpeg)
+![Base de datos Supabase](capturas/supabase.png)
 
 ---
 
 # 📂 Estructura del proyecto
 
-```
+```text
 estanque-iot/
 │
 ├── app.py
@@ -120,6 +120,10 @@ estanque-iot/
 │   └── img/
 │
 └── capturas/
+    ├── estanque.png
+    ├── estanque1.jpeg
+    ├── arduino.jpeg
+    └── supabase.png
 ```
 
 ---
@@ -142,7 +146,7 @@ python3 app.py
 
 ## Abrir en el navegador
 
-```
+```text
 http://127.0.0.1:5000
 ```
 
@@ -154,7 +158,7 @@ El sistema almacena automáticamente los eventos del estanque en Supabase.
 
 Cada registro contiene:
 
-- Fecha y hora
+- Fecha y hora.
 - Nivel de agua.
 - Estado del sistema.
 - Modo de funcionamiento.
@@ -177,4 +181,4 @@ Cada registro contiene:
 
 # 📄 Licencia
 
-Proyecto desarrollado únicamente con fines académicos para la asignatura **Desarrollo de Software Para Hardware**.
+Proyecto desarrollado únicamente con fines académicos para la asignatura **Desarrollo de Software Para Hardeare**.
