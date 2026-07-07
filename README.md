@@ -52,7 +52,6 @@ Python Flask recibe la información enviada por el ESP32, procesa el nivel del e
 - Flask
 - HTML5
 - CSS3
-- JavaScript
 - Supabase
 - GitHub
 
