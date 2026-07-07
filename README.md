@@ -1,6 +1,6 @@
 # 🚰 Sistema IoT - Estanque Inteligente
 
-Proyecto desarrollado para la asignatura **Desarrollo de Software**, utilizando **ESP32, Python Flask, Supabase y GitHub**.
+Proyecto desarrollado para la asignatura **Desarrollo de Software**, utilizando **ESP32, Python, Flask, Supabase y GitHub**.
 
 ## 👥 Integrantes
 
@@ -15,10 +15,10 @@ Este proyecto implementa un sistema IoT para el monitoreo y control del nivel de
 
 El sistema utiliza dos placas ESP32:
 
-- **ESP32 #1:** Simula el sensor de nivel mediante un potenciómetro y envía continuamente el porcentaje de agua al computador.
+- **ESP32 #1:** Simula el sensor de nivel mediante un potenciómetro y envía continuamente el porcentaje de agua al computador mediante comunicación serial.
 - **ESP32 #2:** Funciona como actuador y controla los indicadores LED según el estado del sistema.
 
-Python Flask recibe la información enviada por el ESP32, procesa el nivel del estanque, almacena los eventos en Supabase y actualiza automáticamente la página web.
+La aplicación desarrollada en Python con Flask recibe la información enviada por el ESP32, procesa el nivel del estanque, almacena los eventos en Supabase y actualiza automáticamente la interfaz web.
 
 ---
 
@@ -28,13 +28,13 @@ Python Flask recibe la información enviada por el ESP32, procesa el nivel del e
               ESP32 #1
         (Sensor de Nivel)
                │
-          Comunicación Serial
+      Comunicación Serial
                │
         Python + Flask
                │
       ┌────────┴─────────┐
       │                  │
-   Página Web        Supabase
+  Página Web         Supabase
       │
       │ HTTP
       │
@@ -71,9 +71,9 @@ Python Flask recibe la información enviada por el ESP32, procesa el nivel del e
 - Mantenimiento
 - Falla
 
-✅ Control remoto de LEDs mediante un segundo ESP32.
+✅ Control de indicadores LED mediante un segundo ESP32.
 
-✅ Registro de eventos en Supabase.
+✅ Registro automático de eventos en Supabase.
 
 ---
 
@@ -91,9 +91,9 @@ Python Flask recibe la información enviada por el ESP32, procesa el nivel del e
 
 ---
 
-## ESP32
+## ESP32 Sensor
 
-![ESP32](capturas/arduino.jpeg)
+![ESP32 Sensor](capturas/arduino.jpeg)
 
 ---
 
@@ -109,21 +109,24 @@ Python Flask recibe la información enviada por el ESP32, procesa el nivel del e
 estanque-iot/
 │
 ├── app.py
+├── requirements.txt
+├── README.md
+│
 ├── templates/
 │   └── index.html
+│
 ├── static/
 │   ├── css/
-│   └── js/
-├── capturas/
-├── README.md
-└── requirements.txt
+│   └── img/
+│
+└── capturas/
 ```
 
 ---
 
 # 🚀 Ejecución
 
-Instalar dependencias:
+## Instalar dependencias
 
 ```bash
 pip install flask
@@ -131,13 +134,13 @@ pip install pyserial
 pip install requests
 ```
 
-Ejecutar el proyecto:
+## Ejecutar la aplicación
 
 ```bash
 python3 app.py
 ```
 
-Abrir el navegador:
+## Abrir en el navegador
 
 ```
 http://127.0.0.1:5000
@@ -147,14 +150,14 @@ http://127.0.0.1:5000
 
 # 📊 Base de datos
 
-El sistema almacena automáticamente cada lectura del estanque en Supabase.
+El sistema almacena automáticamente los eventos del estanque en Supabase.
 
 Cada registro contiene:
 
 - Fecha y hora
-- Nivel de agua
-- Estado
-- Modo de funcionamiento
+- Nivel de agua.
+- Estado del sistema.
+- Modo de funcionamiento.
 
 ---
 
@@ -162,9 +165,16 @@ Cada registro contiene:
 
 ✅ Proyecto finalizado.
 
-- Lectura de nivel mediante ESP32.
+- Lectura del nivel mediante ESP32.
 - Interfaz web dinámica.
-- Actualización automática.
-- Comunicación con dos ESP32.
-- Registro en Supabase.
-- Código respaldado en GitHub.
+- Actualización automática de datos.
+- Comunicación entre dos ESP32.
+- Control de indicadores LED.
+- Registro de eventos en Supabase.
+- Respaldo del código en GitHub.
+
+---
+
+# 📄 Licencia
+
+Proyecto desarrollado únicamente con fines académicos para la asignatura **Desarrollo de Software Para Hardware**.
