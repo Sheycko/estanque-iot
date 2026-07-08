@@ -1,6 +1,6 @@
 # 🚰 Sistema IoT - Estanque Inteligente
 
-Proyecto desarrollado para la asignatura **Desarrollo de Software**, utilizando **ESP32, Python, Flask, Supabase y GitHub**.
+Proyecto desarrollado para la asignatura **Desarrollo de Software**, utilizando **ESP32, Python, Flask, HTTP, Supabase y GitHub**.
 
 ## 👥 Integrantes
 
@@ -18,7 +18,7 @@ El sistema utiliza dos placas ESP32:
 - **ESP32 #1:** Simula el sensor de nivel mediante un potenciómetro y envía continuamente el porcentaje de agua al computador mediante comunicación serial.
 - **ESP32 #2:** Funciona como actuador y controla los indicadores LED según el estado del sistema.
 
-La aplicación desarrollada en Python con Flask recibe la información enviada por el ESP32, procesa el nivel del estanque, almacena los eventos en Supabase y actualiza automáticamente la interfaz web.
+La aplicación desarrollada en **Python con Flask** recibe la información enviada por el ESP32 sensor, procesa el nivel del estanque, almacena los eventos en Supabase, actualiza automáticamente la interfaz web y envía órdenes al segundo ESP32 mediante el protocolo **HTTP** para controlar los indicadores LED.
 
 ---
 
@@ -51,6 +51,7 @@ La aplicación desarrollada en Python con Flask recibe la información enviada p
 - Python
 - Flask
 - HTML5
+- HTTP
 - Supabase
 - GitHub
 
@@ -172,19 +173,20 @@ Cada registro contiene:
 - Lectura del nivel mediante ESP32.
 - Interfaz web dinámica.
 - Actualización automática de datos.
-- Comunicación entre dos ESP32.
+- Comunicación entre dos ESP32 mediante HTTP.
 - Control de indicadores LED.
 - Registro de eventos en Supabase.
 - Respaldo del código en GitHub.
 
 ---
 
-#  🤓 Aquí pensando en cómo hacer el trabajo 
+# 🤓 Aquí pensando en cómo hacer el trabajo
 
 Después de varias horas conectando cables, corrigiendo errores, haciendo pruebas, solucionando problemas de comunicación entre los ESP32 y logrando que todo funcionara...
 
 ![Aquí pensando en cómo hacer el trabajo :D](capturas/homero.jpeg)
 
+*"Si funciona... mejor no tocar nada."* 😅
 
 ---
 
